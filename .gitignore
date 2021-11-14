@@ -17,4 +17,4 @@
 # Support for Project snippet scope
 !.vscode/*.code-snippets
 .env
-local
+ssl/*

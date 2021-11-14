@@ -15,25 +15,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-// var (
-// 	debug        bool
-// 	teamA        []int64
-// 	teamB        []int64
-// 	weekDayToInt = map[string]int{
-// 		"Monday":    1,
-// 		"Tuesday":   2,
-// 		"Wednesday": 3,
-// 		"Thursday":  4,
-// 		"Friday":    5,
-// 		"Saturday":  6,
-// 		"Sunday":    7,
-// 	}
-// )
-
 const (
-	token_football_t00002_bot = "bot1791039638:AAEB4cTerrOpB2nACXnfE3fu8RnuwTVTMDE"
-
-	// 	sqlDateTimeForm = "2006-01-02 15:04:05"
 	htmlHelpText = `
 <i>- Create a new Game:</i>
 <code>/new_game</code>
@@ -48,6 +30,10 @@ const (
 <i>- Show Help Message:</i>
 <code>/help</code>
 `
+)
+
+var (
+	token_football_t00002_bot = "telegram_token"
 )
 
 type Config struct {
@@ -146,18 +132,6 @@ type answerCallbackQueryT struct {
 	CacheTime       int64  `json:"cache_time,omitempty"`
 }
 
-// webHookReqBodyT struct
-// type webHookReqBodyT struct {
-// 	UpdateID int      `json:"update_id"`
-// 	Message  messageT `json:"message"`
-// }
-
-// type webHookReqBodyT struct {
-// 	UpdateID int             `json:"update_id"`
-// 	Message  json.RawMessage `json:"message"`
-// 	CallBack json.RawMessage `json:"call_back"`
-// }
-
 type webHookReqBodyT struct {
 	UpdateID      int            `json:"update_id"`
 	Message       messageT       `json:"message,omitempty"`
@@ -184,32 +158,6 @@ type inlineKeyboardButtonT struct {
 	CallBackData string `json:"callback_data,omitempty"`
 }
 
-// Database Connection
-// func dbConn(d string) (db *sql.DB) {
-// 	dbDriver := "mysql"
-// 	dbHost := "db_server"
-// 	dbPort := "3306"
-// 	dbUser := "tgbot"
-// 	dbPassword := "PATl18gh7bqDb9rH"
-// 	dbDatabase := d
-
-// 	db, err := sql.Open(dbDriver, dbUser+":"+dbPassword+"@tcp("+dbHost+":"+dbPort+")/"+dbDatabase)
-// 	if err != nil {
-// 		panic(err.Error())
-// 	}
-// 	return db
-// }
-
-// var weekDayToInt = map[string]int{
-// 	"Monday":    1,
-// 	"Tuesday":   2,
-// 	"Wednesday": 3,
-// 	"Thursday":  4,
-// 	"Friday":    5,
-// 	"Saturday":  6,
-// 	"Sunday":    7,
-// }
-
 func main() {
 	log.Version = "4.0.1"
 	log.Info("Start Application")
@@ -220,6 +168,8 @@ func main() {
 		log.Error("cannot load config:", err)
 		return
 	}
+
+	token_football_t00002_bot = config.BotToken
 
 	log.Debug("Config URL Path: %s", config.URLPath)
 
