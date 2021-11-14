@@ -51,14 +51,16 @@ const (
 )
 
 type Config struct {
-	URLPath    string `mapstructure:"URL_PATH"`
-	BotToken   string `mapstructure:"TG_BOT_TOKEN"`
-	DBDriver   string `mapstructure:"DB_DRIVER"`
-	DBHost     string `mapstructure:"DB_HOST"`
-	DBPort     string `mapstructure:"DB_PORT"`
-	DBUser     string `mapstructure:"DB_USER"`
-	DBPassword string `mapstructure:"DB_PASSWORD"`
-	DBDatabase string `mapstructure:"DB_DATABASE"`
+	URLPath        string `mapstructure:"URL_PATH"`
+	BotToken       string `mapstructure:"TG_BOT_TOKEN"`
+	DBDriver       string `mapstructure:"DB_DRIVER"`
+	DBHost         string `mapstructure:"DB_HOST"`
+	DBPort         string `mapstructure:"DB_PORT"`
+	DBUser         string `mapstructure:"DB_USER"`
+	DBPassword     string `mapstructure:"DB_PASSWORD"`
+	DBDatabase     string `mapstructure:"DB_DATABASE"`
+	SSLCertificate string `mapstructure:"SSL_CERTIFICATE"`
+	SSLPrivateKey  string `mapstructure:"SSL_PRIVATE_KEY"`
 }
 
 // userT Struct
@@ -209,7 +211,7 @@ type inlineKeyboardButtonT struct {
 // }
 
 func main() {
-	log.Version = "2.0.1"
+	log.Version = "4.0.1"
 	log.Info("Start Application")
 	log.AppName = "Football Manager"
 
@@ -219,10 +221,12 @@ func main() {
 		return
 	}
 
+	log.Debug("Config URL Path: %s", config.URLPath)
+
 	http.HandleFunc(config.URLPath, HandlerBot)
 	http.HandleFunc("/", HandlerRoot)
 
-	err = http.ListenAndServeTLS(":90", "soltanici.eu/fullchain5.pem", "soltanici.eu/privkey5.pem", nil)
+	err = http.ListenAndServeTLS(":90", config.SSLCertificate, config.SSLPrivateKey, nil)
 	if err != nil {
 		log.Error("ListenAndServe Error: %s", err.Error())
 		os.Exit(1)
@@ -504,7 +508,7 @@ func selectDate(id int64) (string, error) {
 
 func LoadConfig(path string) (config Config, err error) {
 	viper.AddConfigPath(path)
-	viper.SetConfigName("app")
+	viper.SetConfigName(".env")
 	viper.SetConfigType("env")
 
 	viper.AutomaticEnv()
