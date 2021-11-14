@@ -29,7 +29,7 @@ var weekDayToInt = map[string]int{
 }
 
 const (
-	version         string = "3.0"
+	version         string = "3.1"
 	sqlDateTimeForm        = "2006-01-02 15:04:05"
 	botID                  = "football_t00001_bot"
 	htmlHelpText           = `
