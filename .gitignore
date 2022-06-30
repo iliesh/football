@@ -18,3 +18,18 @@
 !.vscode/*.code-snippets
 .env
 ssl/*
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Test coverage output
+coverage*.*
+
+# server binary
+./server
+
+# PID file generated to support live reload
+.pid
