@@ -1,32 +1,9 @@
-package main
+package telegram
 
-// userT Struct
-type userT struct {
-	ID           int64  `json:"id"`
-	IsBot        bool   `json:"is_bot"`
-	FirstName    string `json:"first_name"`
-	LastName     string `json:"last_name"`
-	Username     string `json:"username"`
-	LanguageCode string `json:"language_code"`
-}
-
-// chatT struct
-type chatT struct {
-	ID        int64  `json:"id"`
-	Type      string `json:"type"`
-	Title     string `json:"title"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Username  string `json:"username"`
-}
-
-// voiceT struct
-type voiceT struct {
-	FileID       string `json:"file_id"`
-	FileUniqueID string `json:"file_unique_id"`
-	Duration     int    `json:"duration"`
-	MimeType     string `json:"mime_type"`
-	FileSize     int    `json:"file_size"`
+type webHookReqBodyT struct {
+	UpdateID      int            `json:"update_id"`
+	Message       messageT       `json:"message,omitempty"`
+	CallBackQuery callBackQueryT `json:"callback_query,omitempty"`
 }
 
 // messageT Struct
@@ -56,15 +33,6 @@ type messageT struct {
 	Caption         string `json:"caption"`
 }
 
-type editMessageTextT struct {
-	ChatID          int64  `json:"chat_id,omitempty"`
-	MessageID       int64  `json:"message_id,omitempty"`
-	InlineMessageID string `json:"inline_message_id,omitempty"`
-	Text            string `json:"text,omitempty"`
-	ParseMode       string `json:"parse_mode,omitempty"`
-	// ReplyMarkup     inlineKeyboardMarkupT `json:"reply_markup,omitempty"`
-}
-
 // callBackQueryT Struct
 type callBackQueryT struct {
 	ID              string   `json:"id"`
@@ -75,18 +43,33 @@ type callBackQueryT struct {
 	Data            string   `json:"data"`
 }
 
-type answerCallbackQueryT struct {
-	CallBackQueryID string `json:"callback_query_id,omitempty"`
-	Text            string `json:"text,omitempty"`
-	ShowAlert       bool   `json:"show_alert,omitempty"`
-	URL             string `json:"url,omitempty"`
-	CacheTime       int64  `json:"cache_time,omitempty"`
+// userT Struct
+type userT struct {
+	ID           int64  `json:"id"`
+	IsBot        bool   `json:"is_bot"`
+	FirstName    string `json:"first_name"`
+	LastName     string `json:"last_name"`
+	Username     string `json:"username"`
+	LanguageCode string `json:"language_code"`
 }
 
-type webHookReqBodyT struct {
-	UpdateID      int            `json:"update_id"`
-	Message       messageT       `json:"message,omitempty"`
-	CallBackQuery callBackQueryT `json:"callback_query,omitempty"`
+// chatT struct
+type chatT struct {
+	ID        int64  `json:"id"`
+	Type      string `json:"type"`
+	Title     string `json:"title"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Username  string `json:"username"`
+}
+
+// voiceT struct
+type voiceT struct {
+	FileID       string `json:"file_id"`
+	FileUniqueID string `json:"file_unique_id"`
+	Duration     int    `json:"duration"`
+	MimeType     string `json:"mime_type"`
+	FileSize     int    `json:"file_size"`
 }
 
 // sendMessageReqBodyT Create a struct to conform to the JSON body
