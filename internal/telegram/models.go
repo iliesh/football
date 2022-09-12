@@ -1,13 +1,19 @@
 package telegram
 
+type logReq string
+
+type BotAPI struct {
+	WebHookReq webHookReqBodyT
+}
+
 type webHookReqBodyT struct {
 	UpdateID      int            `json:"update_id"`
-	Message       messageT       `json:"message,omitempty"`
+	Message       MessageT       `json:"message,omitempty"`
 	CallBackQuery callBackQueryT `json:"callback_query,omitempty"`
 }
 
 // messageT Struct
-type messageT struct {
+type MessageT struct {
 	MessageID            int64  `json:"message_id"`
 	From                 userT  `json:"from"`
 	ForwardFrom          userT  `json:"forward_from"`
@@ -37,7 +43,7 @@ type messageT struct {
 type callBackQueryT struct {
 	ID              string   `json:"id"`
 	From            userT    `json:"from"`
-	Message         messageT `json:"message,omitempty"`
+	Message         MessageT `json:"message,omitempty"`
 	InlineMessageID string   `json:"inline_message_id,omitempty"`
 	ChatInstance    string   `json:"chat_instance"`
 	Data            string   `json:"data"`
@@ -75,19 +81,19 @@ type voiceT struct {
 // sendMessageReqBodyT Create a struct to conform to the JSON body
 // of the send message request
 // https://core.telegram.org/bots/api#sendmessage
-type sendMessageReqBodyT struct {
-	ChatID      int64                 `json:"chat_id,omitempty"`
-	Text        string                `json:"text,omitempty"`
-	ParseMode   string                `json:"parse_mode,omitempty"`
-	ReplyMarkup inlineKeyboardMarkupT `json:"reply_markup,omitempty"`
-}
+// type sendMessageReqBodyT struct {
+// 	ChatID      int64                 `json:"chat_id,omitempty"`
+// 	Text        string                `json:"text,omitempty"`
+// 	ParseMode   string                `json:"parse_mode,omitempty"`
+// 	ReplyMarkup inlineKeyboardMarkupT `json:"reply_markup,omitempty"`
+// }
 
-type inlineKeyboardMarkupT struct {
-	InlineKeyboard [][]inlineKeyboardButtonT `json:"inline_keyboard,omitempty"`
-}
+// type inlineKeyboardMarkupT struct {
+// 	InlineKeyboard [][]inlineKeyboardButtonT `json:"inline_keyboard,omitempty"`
+// }
 
-type inlineKeyboardButtonT struct {
-	Text         string `json:"text,omitempty"`
-	URL          string `json:"url,omitempty"`
-	CallBackData string `json:"callback_data,omitempty"`
-}
+// type inlineKeyboardButtonT struct {
+// 	Text         string `json:"text,omitempty"`
+// 	URL          string `json:"url,omitempty"`
+// 	CallBackData string `json:"callback_data,omitempty"`
+// }

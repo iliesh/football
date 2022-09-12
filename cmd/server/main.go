@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"os"
 
+	app "github.com/iliesh/football/internal/app"
 	"github.com/iliesh/football/internal/config"
 	hc "github.com/iliesh/football/internal/healtcheck"
 	db "github.com/iliesh/football/internal/mysql"
@@ -14,6 +15,7 @@ import (
 var (
 	Version string = "4.1.0"
 	AppName string = "Football Bot"
+	App     app.FootballApp
 )
 
 func init() {
@@ -40,15 +42,19 @@ func main() {
 		os.Exit(-1)
 	}
 
-	log.Debug("Connection to the DB was successfully established, %v", db)
+	log.Debug("Connection to the DB was successfully established")
 
 	http.HandleFunc("/", HandlerRoot)
 	http.HandleFunc("/healthcheck", hc.Handler)
 
-	bot := &tg.BotAPI{DB: db, Token: cfg.BotToken}
+	a := &app.FootballApp{DB: db, BotToken: cfg.BotToken, BotID: cfg.URLPath}
+
+	App.DB = db
+	App.BotToken = cfg.BotToken
+	App.BotID = cfg.URLPath
 
 	http.HandleFunc(cfg.URLPath, func(w http.ResponseWriter, r *http.Request) {
-		tg.HandlerBot(w, r, bot)
+		tg.HandlerBot(w, r, a)
 	})
 
 	log.Debug("Listening on port: %s", cfg.ListenPort)
